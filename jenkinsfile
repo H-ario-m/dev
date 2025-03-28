@@ -1,26 +1,24 @@
 pipeline {
     agent any
-    tools {
-        maven 'maven'  // Use the exact name you set in Global Tool Configuration
+    tools{
+        maven 'maven'
     }
     stages {
-        stage('Build') {
-            steps {
+        stage('build'){
+            steps{
                 sh 'mvn clean package'
             }
         }
-        stage('Test') {
-            steps {
+        stage('test'){
+            steps{
                 sh 'mvn test'
             }
         }
-        stage('Run JAR') {
-            steps {
-                script {
-                    // Run the JAR file and capture the output
-                    def output = sh(script: 'java -jar target/simple-java-project-1.0-SNAPSHOT.jar', returnStdout: true).trim()
 
-                    // Print the output to Jenkins console
+        stage('Run JAR'){
+            steps{
+                script{
+                    def output = sh(script: 'java -jar target/simple-java-project-1.0-SNAPSHOT.jar', returnStdout: true)
                     echo "Output from JAR: ${output}"
                 }
             }
